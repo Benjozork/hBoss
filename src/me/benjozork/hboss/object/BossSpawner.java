@@ -3,16 +3,19 @@ package me.benjozork.hboss.object;
 import me.benjozork.hboss.handler.EntityHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Benjozork on 2016-04-26.
  */
-public class BossSpawner {
+public class BossSpawner implements ConfigurationSerializable {
 
     String name;
     private EntityType type;
@@ -62,4 +65,14 @@ public class BossSpawner {
         return boss;
     }
 
+    @Override
+    public Map<String, Object> serialize() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("location", location);
+        map.put("type", type);
+        map.put("health_multiplier", healthMultiplier);
+        map.put("attributes", attributes);
+        return map;
+    }
 }

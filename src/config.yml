@@ -3,7 +3,7 @@
 messages:
     ## Help messages
     help_header: ' &7&m+----------&r &6Boss &7&m----------+'
-    help_spawn: ' &6/hboss spawn <name> <type> <health multiplier> <delay>'
+    help_spawn: ' &6/hboss spawn <name> <type> <health multiplier>'
     help_spawn_desc: '&7   - &8Creates a new spawn.'
     help_set: ' &6/hboss set <spawn> name/type/health multiplier/delay <value>'
     help_set_desc: '&7   - &8Sets a spawn parameter.'
@@ -21,3 +21,5 @@ messages:
     help_effect_add_desc: '&7   - &8Add an effect to a spawn.'
     help_effect_remove: ' &6/hboss effect remove <spawn> <effect>'
     help_effect_remove_desc: '&7   - &8Remove an effect of a spawn.'
+    ## Error messages
+    not_enough_args: '&CNot enough arguments (%curr%/%req%) for command: /boss %command%'

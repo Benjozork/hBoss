@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class HBoss extends JavaPlugin {
 
-    private ConfigAccessor messagesConfig  = new ConfigAccessor(this, "messages.yml");
+    private ConfigAccessor spanwsConfig  = new ConfigAccessor(this, "spawns.yml");
     private Random rand = new Random();
 
     @Override
