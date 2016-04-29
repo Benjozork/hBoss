@@ -1,7 +1,9 @@
 package me.benjozork.hboss.handler.internal;
 
+import me.benjozork.hboss.HBoss;
 import me.benjozork.hboss.handler.SpawnHandler;
 import me.benjozork.hboss.object.BossSpawner;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +14,13 @@ import org.bukkit.entity.Player;
  * Created by Benjozork on 2016-04-26.
  */
 public class CommandHandler implements CommandExecutor {
+
+    private final HBoss main;
+
+    public CommandHandler(HBoss main) {
+        this.main = main;
+    }
+    
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!label.equalsIgnoreCase("hboss")) return false;
@@ -41,7 +50,10 @@ public class CommandHandler implements CommandExecutor {
                     String name;
                     int healthMultiplier;
 
-                    if (args.length < 5) notEnoughArgs(sender, "spawn", args.length, 5);
+                    if (args.length < 4)  {
+                        notEnoughArgs(sender, "spawn", args.length, 5);
+                        return false;
+                    }
 
                     name = args[1];
 
@@ -61,6 +73,7 @@ public class CommandHandler implements CommandExecutor {
 
                     BossSpawner s = new BossSpawner(name, player.getLocation(), type, healthMultiplier);
                     SpawnHandler.addSpawn(s);
+                    
                     return true;
                 }
 

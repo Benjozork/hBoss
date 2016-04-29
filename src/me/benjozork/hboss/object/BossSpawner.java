@@ -1,6 +1,5 @@
 package me.benjozork.hboss.object;
 
-import me.benjozork.hboss.handler.EntityHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

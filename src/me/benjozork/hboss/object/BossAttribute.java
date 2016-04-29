@@ -8,7 +8,7 @@ public enum BossAttribute {
     FIREBALL,
     SPEED,
     LIGHTNING,
-    FORCEFIELD
-
-
+    FORCEFIELD,
+    ARMY,
+    TELEPORT
 }

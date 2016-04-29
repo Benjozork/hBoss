@@ -1,6 +1,7 @@
 package me.benjozork.hboss.handler;
 
 import me.benjozork.hboss.object.BossEntity;
+
 import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;

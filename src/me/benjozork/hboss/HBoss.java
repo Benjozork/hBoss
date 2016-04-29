@@ -3,7 +3,6 @@ package me.benjozork.hboss;
 import me.benjozork.hboss.handler.internal.CommandHandler;
 import me.benjozork.hboss.handler.internal.MessageHandler;
 import me.benjozork.hboss.handler.SpawnHandler;
-
 import me.benjozork.hboss.internal.ConfigAccessor;
 
 import org.bukkit.Bukkit;
@@ -24,7 +23,7 @@ public class HBoss extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         MessageHandler.setConfig(getConfig());
-        getCommand("hboss").setExecutor(new CommandHandler());
+        getCommand("hboss").setExecutor(new CommandHandler(this));
 
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
 
@@ -34,6 +33,5 @@ public class HBoss extends JavaPlugin {
             }
 
         }, 0L, getConfig().getLong("delay"));
-
     }
 }

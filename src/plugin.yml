@@ -3,5 +3,5 @@ version: 0.1-alpha-1
 main: me.benjozork.hboss.HBoss
 author: Benjozork
 commands:
-    boss:
+    hboss:
         description: Main command.

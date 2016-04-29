@@ -23,3 +23,4 @@ messages:
     help_effect_remove_desc: '&7   - &8Remove an effect of a spawn.'
     ## Error messages
     not_enough_args: '&CNot enough arguments (%curr%/%req%) for command: /boss %command%'
+    invalid_mob_type: '&cInavlid mob type "%type%.;'
