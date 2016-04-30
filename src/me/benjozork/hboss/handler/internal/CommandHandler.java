@@ -2,7 +2,6 @@ package me.benjozork.hboss.handler.internal;
 
 import me.benjozork.hboss.HBoss;
 import me.benjozork.hboss.handler.SpawnHandler;
-import me.benjozork.hboss.object.BossAttribute;
 import me.benjozork.hboss.object.BossSpawner;
 
 import org.bukkit.command.Command;
@@ -107,13 +106,26 @@ public class CommandHandler implements CommandExecutor {
                         SpawnHandler.removeSpawn(args[1]);
                     } catch (IllegalArgumentException e) {
                         sender.sendMessage(MessageHandler.getMessage("invalid_spawn_name").replace("%string%", args[1]));
-                        return  false;
+                        return false;
                     }
                     sender.sendMessage(MessageHandler.getMessage("spawn_delete_deleted").replace("%name%", args[1]));
+
+                    return true;
                 } else if (args[0].equalsIgnoreCase("set")) { // Set subcommand
                     if (args.length == 3) { // Location only requires 3 args
-                        if (args[1].equalsIgnoreCase("location")) {
+                        if (args[2].equalsIgnoreCase("location")) {
+                            if (!(sender instanceof Player)) return false;
 
+                            Player player = (Player) sender;
+
+                            try {
+                                SpawnHandler.getSpawn(args[1]).setLocation(player.getLocation());
+                                player.sendMessage(MessageHandler.getMessage("spawn_set_location_set").replace("%name%", args[1]));
+                                return true;
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(MessageHandler.getMessage("invalid_spawn_name").replace("%string%", args[1]));
+                                return false;
+                            }
                         }
                     }
 
@@ -122,13 +134,62 @@ public class CommandHandler implements CommandExecutor {
                         return false;
                     }
 
-                    if (args[1].equalsIgnoreCase("name")) { // Name param
+                    if (args[2].equalsIgnoreCase("name")) { // Name param
+                        try {
+                            SpawnHandler.getSpawn(args[1]).setName(args[3]);
+                            sender.sendMessage(MessageHandler.getMessage("spawn_set_value_set")
+                                    .replace("%name%", args[1])
+                                    .replace("%value%", args[3].toLowerCase())
+                                    .replace("%param%", "name"));
+                            return true;
+                        } catch (IllegalArgumentException e) {
+                            sender.sendMessage(MessageHandler.getMessage("invalid_spawn_name").replace("%string%", args[1]));
+                            return false;
+                        }
+                    } else if (args[2].equalsIgnoreCase("type")) { // Type param
+                        EntityType type;
+                        try {
+                            type = EntityType.valueOf(args[3].toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            sender.sendMessage(MessageHandler.getMessage("invalid_mob_type").replace("%string%", args[2]));
+                            return false;
+                        }
 
-                    } else if (args[1].equalsIgnoreCase("tpye")) { // Type param
+                        try {
+                            SpawnHandler.getSpawn(args[1]).setType(type);
+                            sender.sendMessage(MessageHandler.getMessage("spawn_set_value_set")
+                                    .replace("%name%", args[1])
+                                    .replace("%value%", args[3].toLowerCase())
+                                    .replace("%param%", "type"));
+                            return true;
+                        } catch (IllegalArgumentException e) {
+                            sender.sendMessage(MessageHandler.getMessage("invalid_spawn_name").replace("%string%", args[1]));
+                            return false;
+                        }
+                    } else if (args[2].equalsIgnoreCase("health_multiplier")) { // HM param
+                        int healthMultiplier;
+                        try {
+                            healthMultiplier = Integer.parseInt(args[3]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(MessageHandler.getMessage("not_a_number").replace("%string%", args[3]).replace("%arg%", "health multiplier"));
+                            return false;
+                        }
 
-                    } else if (args[1].equalsIgnoreCase("health_multiplier")) { // HM param
-
+                        try {
+                            SpawnHandler.getSpawn(args[1]).setHealthMultiplier(healthMultiplier);
+                            sender.sendMessage(MessageHandler.getMessage("spawn_set_value_set")
+                                    .replace("%name%", args[1])
+                                    .replace("%value%", args[3].toLowerCase())
+                                    .replace("%param%", "health multiplier"));
+                            return true;
+                        } catch (IllegalArgumentException e) {
+                            sender.sendMessage(MessageHandler.getMessage("invalid_spawn_name").replace("%string%", args[1]));
+                            return false;
+                        }
                     }
+                    sender.sendMessage(MessageHandler.getMessage("invalid_parameter")
+                            .replace("%string%", args[2]));
+                    return false;
                 }
 
                 for (char c : args[0].toCharArray()) {

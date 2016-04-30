@@ -6,6 +6,7 @@ import me.benjozork.hboss.handler.internal.MessageHandler;
 import me.benjozork.hboss.handler.SpawnHandler;
 import me.benjozork.hboss.internal.ConfigAccessor;
 
+import me.benjozork.hboss.object.BossSpawner;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,5 +37,14 @@ public class HBoss extends JavaPlugin {
 
         }, 0L, getConfig().getLong("delay"));
 
+    }
+
+    @Override
+    public void onDisable() {
+        for (BossSpawner b : SpawnHandler.getSpawns()) {
+            spanwsConfig.getConfig().set(b.getName(), b);
+        }
+        spanwsConfig.saveConfig();
+        System.out.println("[hBoss] Saved " + SpawnHandler.getSpawns().size() + " spawns to config.");
     }
 }

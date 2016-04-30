@@ -30,16 +30,32 @@ public class BossSpawner implements ConfigurationSerializable {
         return name;
     }
 
+    public void setName(String s) {
+        this.name = s;
+    }
+
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location l) {
+        this.location = l;
     }
 
     public int getHealthMultiplier() {
         return healthMultiplier;
     }
 
+    public void setHealthMultiplier(int h) {
+        this.healthMultiplier = h;
+    }
+
     public EntityType getType() {
         return type;
+    }
+
+    public void setType(EntityType t) {
+        this.type = t;
     }
 
     public List<BossAttribute> getAttributes() {
@@ -73,5 +89,21 @@ public class BossSpawner implements ConfigurationSerializable {
         map.put("health_multiplier", healthMultiplier);
         map.put("attributes", attributes);
         return map;
+    }
+
+    public static BossSpawner deSerialize(HashMap<String, Object> map) {
+        BossEntity b;
+        String name = (String) map.get("name");
+        EntityType type = (EntityType) map.get("type");
+        int healthMultiplier = (int) map.get("health_multiplier");
+        ArrayList<BossAttribute> attributes = (ArrayList<BossAttribute>) map.get("attributes");
+        Location loc = (Location) map.get("location");
+
+        BossSpawner buffer = new BossSpawner(name, loc, type, healthMultiplier);
+        for(BossAttribute ba : attributes) {
+            buffer.addAttribute(ba);
+        }
+
+        return buffer;
     }
 }

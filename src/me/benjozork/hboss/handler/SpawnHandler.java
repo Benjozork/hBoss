@@ -16,6 +16,13 @@ public class SpawnHandler {
          return new ArrayList<>(spawns);
     }
 
+    public static BossSpawner getSpawn(String name) throws IllegalArgumentException {
+        for (BossSpawner s : spawns) {
+            if (s.getName().equalsIgnoreCase(name)) return s;
+        }
+        throw new IllegalArgumentException("invalid boss spawn name \"" + name + "\"");
+    }
+
     public static void addSpawn(BossSpawner s) {
         spawns.add(s);
     }

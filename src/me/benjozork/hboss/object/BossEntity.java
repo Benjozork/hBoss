@@ -13,6 +13,7 @@ public class BossEntity {
 
     private LivingEntity entity;
     private List<BossAttribute> attributes = new ArrayList<>();
+    private BossSpawner spawner;
     private double health;
 
     public BossEntity(LivingEntity e, int healthMultiplier) {

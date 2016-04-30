@@ -7,7 +7,7 @@ messages:
     help_header: ' &7&m+----------&r &6Boss &7&m----------+'
     help_spawn: ' &6/hboss spawn <name> <type> <health multiplier>'
     help_spawn_desc: '&7   - &8Creates a new spawn.'
-    help_set: ' &6/hboss set <spawn> name/type/health multiplier/delay <value>'
+    help_set: ' &6/hboss set <spawn> name/type/health multiplier/delay/loc <value>'
     help_set_desc: '&7   - &8Sets a spawn parameter.'
     help_list: '  &6/hboss list'
     help_list_desc: '&7   - &8Lists all spawns'
@@ -28,6 +28,7 @@ messages:
     not_a_number: '&cError on input "%string%" for argument "%arg%": Number expected.'
     invalid_mob_type: '&cInavlid mob type "%string%".'
     invalid_spawn_name: '&cInvalid spawn name "%string%".'
+    invalid_paramter: '&cInvalid parameter "%string%".'
     ## Info messages
     spawn_created: '&aBoss spawn "%name%" created at your location.'
     spawn_list_header: '&7Boss spawns (%count%):'
@@ -37,3 +38,4 @@ messages:
     spawn_list_none: '&cNo spawns registered.'
     spawn_no_attributes: '&anone.'
     spawn_delete_deleted: '&aSpawn "%name%" deleted.'
+    spawn_set_value_set: '&aValue "%param%" set to "%value%" for spawn "%name%".'
