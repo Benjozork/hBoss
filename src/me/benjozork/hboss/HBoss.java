@@ -1,6 +1,7 @@
 package me.benjozork.hboss;
 
 import me.benjozork.hboss.handler.internal.CommandHandler;
+import me.benjozork.hboss.handler.internal.ConfigurationHandler;
 import me.benjozork.hboss.handler.internal.MessageHandler;
 import me.benjozork.hboss.handler.SpawnHandler;
 import me.benjozork.hboss.internal.ConfigAccessor;
@@ -21,7 +22,8 @@ public class HBoss extends JavaPlugin {
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
+        saveConfig();
+        ConfigurationHandler.setConfig(getConfig());
         MessageHandler.setConfig(getConfig());
         getCommand("hboss").setExecutor(new CommandHandler(this));
 
@@ -33,5 +35,6 @@ public class HBoss extends JavaPlugin {
             }
 
         }, 0L, getConfig().getLong("delay"));
+
     }
 }

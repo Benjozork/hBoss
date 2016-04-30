@@ -20,13 +20,14 @@ public class SpawnHandler {
         spawns.add(s);
     }
 
-    public static void removeSpawn(String name) {
+    public static void removeSpawn(String name) throws IllegalArgumentException {
         for (BossSpawner s : spawns) {
             if (s.getName().equalsIgnoreCase(name)) {
                 spawns.remove(s);
                 return;
             }
         }
+        throw new IllegalArgumentException("invalid boss spawn name \"" + name + "\"");
     }
 
 }
