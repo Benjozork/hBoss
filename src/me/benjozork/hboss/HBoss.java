@@ -8,6 +8,7 @@ import me.benjozork.hboss.internal.ConfigAccessor;
 
 import me.benjozork.hboss.object.BossSpawner;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
@@ -17,16 +18,26 @@ import java.util.Random;
  */
 public class HBoss extends JavaPlugin {
 
-    private ConfigAccessor spanwsConfig  = new ConfigAccessor(this, "spawns.yml");
+    private ConfigAccessor spanwsConfig = new ConfigAccessor(this, "spawns.yml"), messagesConfig = new ConfigAccessor(this, "messages.yml");
     private Random rand = new Random();
+
+    @Override
+    public void onLoad() {
+        ConfigurationSerialization.registerClass(BossSpawner.class);
+    }
 
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
         saveConfig();
-        ConfigurationHandler.setConfig(getConfig());
-        MessageHandler.setConfig(getConfig());
+        spanwsConfig.saveConfig();
+
+        ConfigurationHandler.init(getConfig(), spanwsConfig.getConfig(), messagesConfig.getConfig());
         getCommand("hboss").setExecutor(new CommandHandler(this));
+
+        for (String s : spanwsConfig.getConfig().getKeys(false)) {
+            SpawnHandler.addSpawn((BossSpawner) spanwsConfig.getConfig().get(s));;
+        }
 
         Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
 

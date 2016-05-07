@@ -1,5 +1,6 @@
 package me.benjozork.hboss.handler;
 
+import me.benjozork.hboss.handler.internal.ConfigurationHandler;
 import me.benjozork.hboss.object.BossSpawner;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class SpawnHandler {
     private static List<BossSpawner> spawns = new ArrayList<>();
 
     public static List<BossSpawner> getSpawns() {
-         return new ArrayList<>(spawns);
+         return spawns;
     }
 
     public static BossSpawner getSpawn(String name) throws IllegalArgumentException {
@@ -31,6 +32,7 @@ public class SpawnHandler {
         for (BossSpawner s : spawns) {
             if (s.getName().equalsIgnoreCase(name)) {
                 spawns.remove(s);
+                ConfigurationHandler.getSpawnsConfig().set(s.getName(), null);
                 return;
             }
         }

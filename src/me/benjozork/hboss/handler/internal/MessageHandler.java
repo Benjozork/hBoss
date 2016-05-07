@@ -9,11 +9,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class MessageHandler {
     private static FileConfiguration config;
 
-    public static void setConfig(FileConfiguration fc) {
-        config = fc;
-    }
 
     public static String getMessage(String id) {
-        return ChatColor.translateAlternateColorCodes('&', config.getString("messages." + id));
+        return ChatColor.translateAlternateColorCodes('&', ConfigurationHandler.getMessagesConfig().getString(id));
     }
 }

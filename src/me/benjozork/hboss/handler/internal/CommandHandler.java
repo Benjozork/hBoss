@@ -50,7 +50,7 @@ public class CommandHandler implements CommandExecutor {
                     String name;
                     int healthMultiplier;
 
-                    if (args.length < 4)  {
+                    if (args.length < 4) {
                         notEnoughArgs(sender, "spawn", args.length, 4);
                         return false;
                     }
@@ -75,7 +75,7 @@ public class CommandHandler implements CommandExecutor {
                     SpawnHandler.addSpawn(s);
 
                     player.sendMessage(MessageHandler.getMessage("spawn_created").replace("%name%", name));
-                    
+
                     return true;
                 } else if (args[0].equalsIgnoreCase("list")) { // List subcommand
                     if (SpawnHandler.getSpawns().size() == 0) {
@@ -89,7 +89,8 @@ public class CommandHandler implements CommandExecutor {
                                 .replace("%type%", b.getType().toString().toLowerCase())
                                 .replace("%healthMultiplier%", b.getHealthMultiplier() + ""));
                         String attributes = "";
-                        if (b.getAttributes().size() == 0) attributes = MessageHandler.getMessage("spawn_no_attributes");
+                        if (b.getAttributes().size() == 0)
+                            attributes = MessageHandler.getMessage("spawn_no_attributes");
                         for (int i = 0; i < b.getAttributes().size(); i++) {
                             attributes += (i > b.getAttributes().size() - 1 ? b.getAttributes().get(i) + ", " : b.getAttributes().get(i) + ".");
                         }
@@ -190,22 +191,24 @@ public class CommandHandler implements CommandExecutor {
                     sender.sendMessage(MessageHandler.getMessage("invalid_parameter")
                             .replace("%string%", args[2]));
                     return false;
-                }
-
-                for (char c : args[0].toCharArray()) {
-                    if (Character.isDigit(c)) {
-                        sender.sendMessage(MessageHandler.getMessage("help_header"));
-                        sender.sendMessage(MessageHandler.getMessage("help_delete"));
-                        sender.sendMessage(MessageHandler.getMessage("help_delete_desc"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_list"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_list_desc"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_add"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_add_desc"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_remove"));
-                        sender.sendMessage(MessageHandler.getMessage("help_effect_remove_desc"));
-                        sender.sendMessage(MessageHandler.getMessage("help_footer").replace("%pages%", "2/2"));
-                        return true;
+                } else {
+                    for (char c : args[0].toCharArray()) {
+                        if (Character.isDigit(c) && c != '1') {
+                            sender.sendMessage(MessageHandler.getMessage("help_header"));
+                            sender.sendMessage(MessageHandler.getMessage("help_delete"));
+                            sender.sendMessage(MessageHandler.getMessage("help_delete_desc"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_list"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_list_desc"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_add"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_add_desc"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_remove"));
+                            sender.sendMessage(MessageHandler.getMessage("help_effect_remove_desc"));
+                            sender.sendMessage(MessageHandler.getMessage("help_footer").replace("%pages%", "2/2"));
+                            return true;
+                        }
                     }
+
+                    sender.sendMessage(MessageHandler.getMessage("invalid_argument").replace("%string%", args[0]));
                 }
             }
         }
@@ -214,7 +217,7 @@ public class CommandHandler implements CommandExecutor {
 
     private void notEnoughArgs(CommandSender sender, String spawn, int length, int i) {
         sender.sendMessage(MessageHandler.getMessage("not_enough_args")
-                .replace("%command%", "spawn")
+                .replace("%command%", spawn)
                 .replace("%curr%", length + "")
                 .replace("%req%", i + ""));
     }
